@@ -1,0 +1,94 @@
+%% Making Super nice plots in MATLAB -- Script written by: Chris Esparza
+%
+% Last Modified: 9-14-2018
+
+%{
+% This script is just a small introduction into the fundamentals of
+% plotting using MATLAB. There are a lot more tips and tricks, but these
+% are the ones I find myself using A LOT. If you have anymore questions,
+% be sure to email me at: jce18b@my.fsu.edu. Or you can always visit
+% MathWorks' website where they have examples for all of their MATLAB
+% commands:
+%
+% https://www.mathworks.com/help/matlab/creating_plots/types-of-matlab-plots.html
+%
+% You can also search using the bar at the top left if you're stuck.
+%
+%}
+
+% "clc" clears the command window, "clear all" clears all variables, and 
+% "close all" closes all the figures/windows.
+clc, clear all, close all
+
+% These three lines set the default interpreter to LaTeX. This means the
+% titles, axis labels, and axis tick marks will have the CMU Serif font, as
+% well as follow normal LaTeX syntax when making symbols.
+
+set(0,'defaultTextInterpreter','latex'); 
+set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
+set(groot, 'defaultLegendInterpreter','latex');
+
+% In the email I attached some data I gathered during an assignment from
+% last spring. Download that into the same folder as this script, and then 
+% this command will load the data. 
+load('session09_data.mat');
+
+
+%% Plotting
+
+% the "figure()" command tells MATLAB that this is an independent figure in
+% which you'll plot something
+figure(1)
+
+% "plot" plots what you input. It follows:
+%
+% plot( xdata, ydata, color/type of marker, other commands);
+% 
+% The "marker" and "other commands" are not necessary, however they help
+% make the plot more legible. For example, I used 'linewidth' to make the
+% lines of the graph heavier (thicker) so they're easier to read. 
+plot( t, x_t, 'o', t, v_t, 'o', 'linewidth',2);
+
+% turns on grid in background
+grid on
+
+% The next three lines are labels for the plot you just made. Notice since
+% we set the default interpreter as LaTeX, I used the syntax for making
+% font bold as it appears in LaTeX. If you do not include the "set" 
+% commands at the beginning, you simply type the word in single quotes and
+% it will run.
+title('\textbf{Position vs. Time}');
+xlabel('\textbf{t}');
+ylabel('\textbf{x(t), v(t)}');
+
+% this makes a legend so you can distinguish your data lines
+legend('x(t)','v(t)');
+
+%% Font Sizes
+
+% Here I took the same plot and just messed with the font sizes to show you
+% how to do it.
+
+% Make a new figure!!
+figure(2)
+plot( t, x_t, 'o', 'linewidth',2);
+title('\textbf{Position vs. Time}','fontsize',32);
+xlabel('\textbf{t}','fontsize',10);
+ylabel('\textbf{x(t)}','fontsize',22);
+
+%% Errorbars
+%
+% I will use the same data as before, but now I'll use the command
+% "errorbar" instead of plot.
+
+% I make a vector of the same number to use as my error for this example.
+err = 0.05*ones(549,1);
+
+% now we plot using "errorbar". make a new figure!!
+figure(3)
+
+% you'll have to zoom in to see the bars themselves, but they're there!
+errorbar(t, x_t, err, '*');
+title('\textbf{Position vs. Time}');
+xlabel('\textbf{t}');
+ylabel('\textbf{x(t)}');
